@@ -58,6 +58,24 @@ in `resources.txt` exist on your machine.
 
 To return to the stock look, remove the variable and restart kiwix-serve.
 
+### Switch with one command
+
+[examples/theme.sh](examples/theme.sh) keeps the choice in a `.env` file
+next to `docker-compose.yml`. Copy `dist/` to `./themes/offline-shelf/`, use
+this line in the compose file
+
+```yaml
+KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/offline-shelf/${KIWIX_THEME:-papier+lampenlicht}/resources.txt
+```
+
+and switch on the server:
+
+```sh
+./theme.sh                    # show the active pack and all themes
+./theme.sh zeitung rotlicht   # light theme first, dark theme second
+./theme.sh off                # stock Kiwix look
+```
+
 ## Themes
 
 ### Light
