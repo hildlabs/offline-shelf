@@ -1,0 +1,21 @@
+# Example: kiwix-serve with a theme from this repository.
+#
+# 1. Clone this repository next to your ZIM files.
+# 2. Pick a theme: change THEME below (see `tools/kiwix-theme list`).
+# 3. docker compose up -d
+#
+# To go back to the stock look, remove the KIWIX_SERVE_CUSTOMIZED_RESOURCES line.
+
+services:
+  kiwix:
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    command: "*.zim"
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./zim:/data:ro
+      - ./offline-shelf/themes:/themes:ro
+    environment:
+      # Path inside the container: /themes/<THEME>/resources.txt
+      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/THEME/resources.txt
+    restart: unless-stopped
