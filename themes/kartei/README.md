@@ -9,6 +9,8 @@ the light or dark setting of the device, with no switch and no JavaScript.
 | ![Kartei, light, desktop](screenshots/desktop-light.png) | ![Kartei, dark, desktop](screenshots/desktop-dark.png) |
 | ![Kartei, light, phone](screenshots/mobile-light.png) | ![Kartei, dark, phone](screenshots/mobile-dark.png) |
 
+Reader toolbar: [dark, desktop](screenshots/reader-dark.png), [light, phone](screenshots/reader-mobile-light.png).
+
 Stock look for comparison: [screenshots/stock-desktop.png](screenshots/stock-desktop.png).
 
 ## What it changes
@@ -35,6 +37,13 @@ Stock look for comparison: [screenshots/stock-desktop.png](screenshots/stock-des
   reduced motion.
 - **States.** Visible keyboard focus around the whole card, an active filter
   is tinted, the tag filter shows as a removable chip.
+- **Reader toolbar.** The bar above an opened book matches the library:
+  line icons instead of emoji (library, random article), the book's title in
+  serif with a book icon, a proper search field with themed suggestions, and
+  a divider between "library" and "this book". On phones the title becomes
+  an icon, the buttons stay visible, and the search takes the whole row while
+  typing. The article itself is the book's own HTML and keeps the book's own
+  look (including its own dark mode, if it has one).
 - **Contrast.** All text at least 6.3:1 in both schemes (WCAG AA needs 4.5:1).
 
 ## Files
@@ -43,6 +52,7 @@ Stock look for comparison: [screenshots/stock-desktop.png](screenshots/stock-des
 | --- | --- |
 | `/skin/kiwix.css` | Colour tokens for both schemes, base styles, modal, loader |
 | `/skin/index.css` | Library page layout |
+| `/skin/taskbar.css` | Reader toolbar above an opened book |
 | `/skin/langSelector.svg`, `/skin/feed.svg` | Line icons that switch colour with the scheme |
 
 ## Metadata
@@ -50,5 +60,5 @@ Stock look for comparison: [screenshots/stock-desktop.png](screenshots/stock-des
 - Name: Kartei
 - Tested with: kiwix-serve on libkiwix 14.0.0 to 14.2.1 (identical page files), Chromium, 390 to 1920 px wide
 - Progressive extras: collection tabs need `:has()`, the scroll edge needs scroll-driven animations, the page cross-fade needs view transitions; without them the page looks the same minus that detail
-- Not yet styled: article toolbar, search results, error pages (stock look)
+- Not yet styled: full-text search results, error pages (stock look)
 - License: GPL-3.0-or-later
