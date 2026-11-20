@@ -1,0 +1,33 @@
+/*! name: Mitternacht | scheme: dark | about: Deep night blue, ivory text, gold accent, italic serif titles, soft rounded cards. */
+:root {
+  color-scheme: dark;
+  --bg: #0c1220;
+  --surface: #121a2c;
+  --surface-2: #1a243d;
+  --line: #232f4f;
+  --line-strong: #3a4a73;
+  --ink: #efe9dc;
+  --ink-2: #d8d1c2;
+  --muted: #a0a8bd;
+  --accent: #e3be72;
+  --accent-hover: #efce8b;
+  --accent-ink: #1a1406;
+  --accent-soft: #2e2c33;
+  --focus: #efce8b;
+  --overlay: rgba(3, 6, 14, 0.7);
+  --shadow-soft: rgba(0, 0, 0, 0.55);
+  --card-shadow: 0 16px 32px -14px rgba(0, 0, 0, 0.8);
+  --icon-tile: #efe9dc;
+  --title-weight: 500;
+  --title-tracking: 0;
+  --heading-size: 2.25rem;
+  --card-title-size: 1.3125rem;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --card-radius: 12px;
+  --card-corner-tl: 12px;
+  --icon-radius: 10px;
+  --tab-display: none;
+  --meta-rule: solid;
+}
+html #book__title, html .kiwixHomeBody__results, html #kiwix_serve_taskbar_home_button button { font-style: italic; }

@@ -1,0 +1,47 @@
+/*! name: Bunker | scheme: dark | about: Terminal in a shelter: black-green phosphor, monospace everywhere, dashed outlines, capital titles, a blinking cursor. */
+:root {
+  color-scheme: dark;
+  --bg: #070c07;
+  --surface: #0c140c;
+  --surface-2: #142014;
+  --line: #1d331e;
+  --line-strong: #2f5a33;
+  --ink: #b6f2ae;
+  --ink-2: #9bdf92;
+  --muted: #74b56d;
+  --accent: #3fd45a;
+  --accent-hover: #63e679;
+  --accent-ink: #031a06;
+  --accent-soft: #0f3317;
+  --focus: #63e679;
+  --overlay: rgba(0, 0, 0, 0.75);
+  --shadow-soft: rgba(0, 0, 0, 0.6);
+  --card-shadow: 0 0 0 1px #3fd45a, 0 0 18px -4px rgba(63, 212, 90, 0.35);
+  --icon-tile: #d9e6d6;
+  --font-ui: var(--mono);
+  --font-title: var(--mono);
+  --font-meta: var(--mono);
+  --title-weight: 700;
+  --title-transform: uppercase;
+  --title-tracking: 0.02em;
+  --heading-size: 1.75rem;
+  --card-title-size: 1rem;
+  --radius: 0;
+  --radius-sm: 0;
+  --card-radius: 0;
+  --icon-radius: 0;
+  --card-border-style: dashed;
+  --tab-display: none;
+  --card-lift: 0px;
+  --logo-filter: grayscale(1) sepia(1) hue-rotate(60deg) saturate(2.2) brightness(0.85);
+}
+html .kiwixHomeBody__results::after {
+  content: "_";
+  margin-left: 0.15em;
+  color: var(--accent);
+  animation: bunker-cursor 1.1s steps(1) infinite;
+}
+@keyframes bunker-cursor { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html .kiwixHomeBody__results::after { animation: none; }
+}

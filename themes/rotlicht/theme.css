@@ -1,0 +1,33 @@
+/*! name: Rotlicht | scheme: dark | about: Night-vision mode for blackouts: black and dim red only, no other hue anywhere, and the article itself is tinted red too, so your eyes stay adapted to the dark. */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: #0a0000;
+  --surface-2: #160202;
+  --line: #2a0505;
+  --line-strong: #4d0b0b;
+  --ink: #ff4a38;
+  --ink-2: #f03c2c;
+  --muted: #e23a2a;
+  --accent: #ff3b2b;
+  --accent-hover: #ff5a4a;
+  --accent-ink: #000000;
+  --accent-soft: #2e0603;
+  --focus: #ff5a4a;
+  --overlay: rgba(0, 0, 0, 0.8);
+  --shadow-soft: rgba(0, 0, 0, 0.8);
+  --card-shadow: 0 0 0 1px #4d0b0b;
+  --icon-tile: #c0c0c0;
+  --tab-wikipedia: #6a1010;
+  --tab-wiktionary: #6a1010;
+  --tab-wikivoyage: #6a1010;
+  --tab-wikibooks: #6a1010;
+  --tab-howto: #6a1010;
+  --tab-gutenberg: #6a1010;
+  --tab-qa: #6a1010;
+  --tab-video: #6a1010;
+  --card-lift: 0px;
+  --logo-filter: grayscale(1) brightness(0.3) sepia(1) saturate(12) hue-rotate(-28deg);
+  --frame-filter: grayscale(1) brightness(0.3) sepia(1) saturate(12) hue-rotate(-28deg);
+}
+html ::selection { background: #4d0b0b; color: #ff5a4a; }

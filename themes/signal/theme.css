@@ -1,0 +1,36 @@
+/*! name: Signal | scheme: dark | about: Industrial charcoal with safety orange, bold capital sans titles, hazard-striped tabs, heavy controls. */
+:root {
+  color-scheme: dark;
+  --bg: #191a1c;
+  --surface: #212225;
+  --surface-2: #2b2d31;
+  --line: #35383d;
+  --line-strong: #555a62;
+  --ink: #f2f2ef;
+  --ink-2: #d9d9d4;
+  --muted: #a7a9ab;
+  --accent: #ff7a1a;
+  --accent-hover: #ff9142;
+  --accent-ink: #1a0d00;
+  --accent-soft: #3f2714;
+  --focus: #ff9142;
+  --overlay: rgba(0, 0, 0, 0.7);
+  --shadow-soft: rgba(0, 0, 0, 0.55);
+  --card-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.8);
+  --icon-tile: #f2f2ef;
+  --font-title: var(--sans);
+  --title-weight: 800;
+  --title-transform: uppercase;
+  --title-tracking: 0.01em;
+  --card-title-size: 1.0625rem;
+  --radius: 2px;
+  --radius-sm: 2px;
+  --card-radius: 2px;
+  --icon-radius: 2px;
+  --control-border: 2px;
+  --meta-rule: solid;
+}
+html .book__wrapper::before {
+  width: 72px;
+  background: repeating-linear-gradient(-45deg, #ff7a1a 0 6px, #191a1c 6px 12px);
+}

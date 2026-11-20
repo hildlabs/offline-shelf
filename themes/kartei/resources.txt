@@ -1,5 +1,0 @@
-/skin/feed.svg image/svg+xml /themes/kartei/files/skin/feed.svg
-/skin/index.css text/css /themes/kartei/files/skin/index.css
-/skin/kiwix.css text/css /themes/kartei/files/skin/kiwix.css
-/skin/langSelector.svg image/svg+xml /themes/kartei/files/skin/langSelector.svg
-/skin/taskbar.css text/css /themes/kartei/files/skin/taskbar.css

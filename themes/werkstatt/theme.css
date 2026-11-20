@@ -1,0 +1,37 @@
+/*! name: Werkstatt | scheme: light | about: Workshop sheet metal: cool grey, heavy 2px outlines, blueprint blue, sans titles and monospace labels. */
+:root {
+  color-scheme: light;
+  --bg: #e8eaed;
+  --surface: #f7f8fa;
+  --surface-2: #dce0e5;
+  --line: #c3cad2;
+  --line-strong: #6f7b89;
+  --ink: #0f151c;
+  --ink-2: #25303b;
+  --muted: #47535f;
+  --accent: #1c4fd6;
+  --accent-hover: #173fac;
+  --accent-ink: #ffffff;
+  --accent-soft: #d9e4fb;
+  --focus: #2461f0;
+  --overlay: rgba(15, 21, 28, 0.5);
+  --shadow-soft: rgba(15, 21, 28, 0.16);
+  --card-shadow: 0 0 0 2px #1c4fd6;
+  --icon-tile: #ffffff;
+  --font-title: var(--sans);
+  --font-meta: var(--mono);
+  --title-weight: 700;
+  --title-tracking: -0.01em;
+  --card-title-size: 1.125rem;
+  --radius: 3px;
+  --radius-sm: 2px;
+  --card-radius: 4px;
+  --card-corner-tl: 4px;
+  --icon-radius: 4px;
+  --card-border: 2px;
+  --control-border: 2px;
+  --tab-display: none;
+  --card-lift: 0px;
+}
+html .book__languageTag { background: #0f151c; color: #ffffff; border-radius: 2px; }
+html .kiwixHomeBody__results { font-family: var(--mono); font-weight: 600; letter-spacing: -0.03em; }

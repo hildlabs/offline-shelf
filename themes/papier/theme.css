@@ -1,0 +1,21 @@
+/*! name: Papier | scheme: light | about: Warm paper and near-black ink, serif titles, coloured index tabs per collection (the light half of the original Kartei). */
+:root {
+  color-scheme: light;
+  --bg: #f3f1ec;
+  --surface: #fcfbf8;
+  --surface-2: #ebe8e1;
+  --line: #dcd8cf;
+  --line-strong: #b7b1a5;
+  --ink: #1f1c17;
+  --ink-2: #3b362d;
+  --muted: #5e574b;
+  --accent: #9a5200;
+  --accent-hover: #7f4300;
+  --accent-ink: #ffffff;
+  --accent-soft: #f4e3c8;
+  --focus: #b86200;
+  --overlay: rgba(31, 28, 23, 0.45);
+  --shadow-soft: rgba(40, 30, 15, 0.16);
+  --card-shadow: 0 10px 24px -10px rgba(40, 30, 15, 0.28), 0 2px 6px -2px rgba(40, 30, 15, 0.12);
+  --icon-tile: #faf8f3;
+}
