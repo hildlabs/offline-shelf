@@ -50,7 +50,11 @@ To return to the stock look, remove the variable and restart kiwix-serve.
 
 ## Available themes
 
-None yet.
+| Theme | Look | Covers |
+| ----- | ---- | ------ |
+| [kartei](themes/kartei/) | Quiet library card index, light and dark by device setting | Library page |
+
+![Kartei, dark](themes/kartei/screenshots/desktop-dark.png)
 
 ## Make a theme
 
@@ -70,6 +74,7 @@ not to run them.
 | kiwix-serve | libkiwix | Mechanism works |
 | ----------- | -------- | --------------- |
 | 3.5.0       | 12.1.1   | yes (tested)    |
+| 3.x on libkiwix 14.x | 14.0.0–14.2.1 | yes, used by the kartei theme |
 | latest      | 15.x     | present in source, not yet tested end to end |
 
 Stock CSS changes between Kiwix releases. Each theme notes the version it was
