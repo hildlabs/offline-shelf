@@ -71,8 +71,15 @@
   to { opacity: 1; }
 }
 
+/* With the theme menu (added by switcher.js) the bar gets one more slot */
+.os-switch .kiwixNav {
+  grid-template-columns: minmax(0, 36rem) auto 1fr auto auto auto;
+  grid-template-areas: "search filters . theme lang feed";
+}
+
 .kiwixNav > #feedLink { grid-area: feed; }
 .kiwixNav > a:not(#feedLink) { grid-area: lang; }
+.kiwixNav > a#os-theme-btn { grid-area: theme; }
 .kiwixNav__filters { grid-area: filters; }
 .kiwixNav__SearchForm { grid-area: search; }
 
@@ -119,6 +126,11 @@
   -webkit-mask: var(--m-globe) center / contain no-repeat;
   mask: var(--m-globe) center / contain no-repeat;
   pointer-events: none;
+}
+
+.kiwixNav > #os-theme-btn::before {
+  -webkit-mask-image: var(--m-theme);
+  mask-image: var(--m-theme);
 }
 
 .kiwixNav > #feedLink::before {
@@ -827,6 +839,13 @@
     grid-template-areas:
       "search lang feed"
       "filters filters filters";
+  }
+
+  .os-switch .kiwixNav {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-areas:
+      "search theme lang feed"
+      "filters filters filters filters";
   }
 
   .kiwixNav__filters {
