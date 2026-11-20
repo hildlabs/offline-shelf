@@ -1,0 +1,79 @@
+/* offline-shelf · theme "salbei" for the theme menu. Generated, do not edit. */
+html[data-theme="salbei"] {
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Noto Serif", "Droid Serif", serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --rounded: ui-rounded, "SF Pro Rounded", "Nunito", "Varela Round", system-ui, sans-serif;
+  --font-ui: var(--sans);
+  --font-title: var(--serif);
+  --font-meta: var(--sans);
+  --title-weight: 600;
+  --title-tracking: -0.005em;
+  --title-transform: none;
+  --heading-size: 2rem;
+  --card-title-size: 1.1875rem;
+  --radius: 6px;
+  --radius-sm: 4px;
+  --card-radius: 6px;
+  --card-corner-tl: 0;
+  --icon-radius: 8px;
+  --card-border: 1px;
+  --card-border-style: solid;
+  --control-border: 1px;
+  --meta-rule: dashed;
+  --tab-display: block;
+  --card-lift: -3px;
+  --nav-bg: var(--bg);
+  --card-bg: var(--surface);
+  --icon-tile: #faf8f3;
+  --shadow-soft: rgba(0, 0, 0, 0.14);
+  --card-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.28), 0 2px 6px -2px rgba(0, 0, 0, 0.12);
+  --logo-filter: none;
+  --frame-filter: none;
+  --tab-wikipedia: #56708f;
+  --tab-wiktionary: #8a5f7d;
+  --tab-wikivoyage: #4c7c69;
+  --tab-wikibooks: #a37b25;
+  --tab-howto: #a8553a;
+  --tab-gutenberg: #6c7339;
+  --tab-qa: #4f6f86;
+  --tab-video: #8b4a4a;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --t-fast: 120ms;
+  --t: 180ms;
+  color-scheme: light;
+  --bg: #edf0e8;
+  --surface: #fafbf7;
+  --surface-2: #e1e7d9;
+  --line: #d2d9c9;
+  --line-strong: #a3ae96;
+  --ink: #1b2318;
+  --ink-2: #313b2d;
+  --muted: #535d4c;
+  --accent: #3d6833;
+  --accent-hover: #31552a;
+  --accent-ink: #ffffff;
+  --accent-soft: #dae9d2;
+  --focus: #4c853f;
+  --overlay: rgba(27, 35, 24, 0.4);
+  --shadow-soft: rgba(40, 60, 30, 0.16);
+  --card-shadow: 0 14px 30px -14px rgba(40, 60, 30, 0.35);
+  --icon-tile: #ffffff;
+  --font-ui: var(--rounded);
+  --font-title: var(--rounded);
+  --font-meta: var(--rounded);
+  --title-weight: 700;
+  --title-tracking: 0;
+  --radius: 999px;
+  --radius-sm: 999px;
+  --card-radius: 18px;
+  --card-corner-tl: 18px;
+  --icon-radius: 50%;
+  --tab-display: none;
+  --meta-rule: none;
+  --card-lift: -4px;
+}
+/* Pill controls need a little more side padding */
+html[data-theme="salbei"] .kiwixSearch, html[data-theme="salbei"] #kiwixtoolbar #kiwixsearchbox { padding-left: 42px; }
+html[data-theme="salbei"] .kiwixNav__kiwixFilter { padding-left: 16px; }
+html[data-theme="salbei"] .modal { border-radius: 18px; }

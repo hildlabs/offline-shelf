@@ -28,9 +28,9 @@ It points to a text file where each line maps a URL to a local file:
 kiwix-serve then serves that file instead of its built-in one. Details and
 caveats are in [docs/how-it-works.md](docs/how-it-works.md).
 
-This repository replaces three files: `kiwix.css` (loaded on every page),
-`index.css` (library page) and `taskbar.css` (the toolbar above an opened
-book). The layout lives once in [base/](base/). Each theme is a single
+This repository replaces three stylesheets: `kiwix.css` (loaded on every
+page), `index.css` (library page) and `taskbar.css` (the toolbar above an
+opened book), plus `polyfills.js` for the theme menu (see below). The layout lives once in [base/](base/). Each theme is a single
 `themes/<name>/theme.css` holding only colours, fonts and shapes as CSS
 custom properties, plus a few extra rules where a theme needs them.
 
@@ -75,6 +75,27 @@ and switch on the server:
 ./theme.sh zeitung rotlicht   # light theme first, dark theme second
 ./theme.sh off                # stock Kiwix look
 ```
+
+### Theme menu in the browser
+
+Every pack also adds a small theme button to the library bar and the reader
+toolbar (half-filled circle, next to the language button). It opens one flat
+list: "Automatic" (the server's pack, light or dark per device) and the ten
+themes. The choice is stored per device in the browser, so a phone can use
+Rotlicht while the tablet keeps Papier. The server setting stays the default
+for every device that has not picked anything.
+
+How it gets onto the page without patching kiwix-serve: both pages load the
+stock `skin/polyfills.js` early in `<head>`. The pack replaces it with the
+stock content (copied unchanged to [base/upstream/](base/upstream/)) plus
+[base/switcher.js](base/switcher.js), about 8 KB together. Each theme is also
+built on its own as `dist/skin/os-theme/<name>.css` (2 to 3 KB), loaded only
+when chosen and cached in the browser, so a reload shows the right theme from
+the first frame. No library, no cookie, no extra service.
+
+If a later Kiwix release changes `polyfills.js`, copy the new file to
+`base/upstream/` and rebuild. `tools/kiwix-theme check-server` reports the
+difference.
 
 ## Themes
 

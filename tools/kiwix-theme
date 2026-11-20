@@ -69,6 +69,12 @@ extras() {
 
 indent() { sed 's/^/  /'; }
 
+# scope <selector>: point the "html " prefix of extra rules at <selector>
+scope() { sed "s/^\( *\)html /\1$1 /; s/, *html /, $1 /g"; }
+
+# token <file> <name>: value of one token, e.g. token f --bg -> #f3f1ec
+token() { tokens "$1" | sed -n "s/^ *$2: *\([^;]*\);.*/\1/p" | head -n 1; }
+
 decls() {
   # strip comment-only lines from a declaration file
   grep -v '^ *\(/\*\|\*\)' "$1" | sed '/^ *$/d'
@@ -91,11 +97,13 @@ EOF
   decls "$BASE/icons.css" | indent
   decls "$BASE/defaults.css" | indent
   tokens "$lf" | sed 's/^ *//' | indent
+  echo "  --pack-light: \"$light\";"
+  echo "  --pack-dark: \"$dark\";"
   echo "}"
   echo
   if [ -n "$(extras "$lf" | sed '/^ *$/d')" ]; then
     echo "@media not all and (prefers-color-scheme: dark) {"
-    extras "$lf" | indent
+    extras "$lf" | scope 'html:not([data-theme])' | indent
     echo "}"
     echo
   fi
@@ -104,10 +112,40 @@ EOF
   decls "$BASE/defaults.css" | indent | indent
   tokens "$df" | sed 's/^ *//' | indent | indent
   echo "  }"
-  extras "$df" | indent
+  extras "$df" | scope 'html:not([data-theme])' | indent
   echo "}"
   echo
   cat "$BASE/skin/kiwix.css"
+}
+
+# theme_css <name>: one theme on its own, used by the theme menu. It applies
+# when <html data-theme="name">, whatever the device's light/dark setting.
+theme_css() {
+  f=$(theme_file "$1"); sel="html[data-theme=\"$1\"]"
+  printf '/* offline-shelf · theme "%s" for the theme menu. Generated, do not edit. */\n' "$1"
+  echo "$sel {"
+  decls "$BASE/defaults.css" | indent
+  tokens "$f" | sed 's/^ *//' | indent
+  echo "}"
+  extras "$f" | scope "$sel"
+}
+
+# build_switcher: per-theme CSS files and the menu script (shared by all packs)
+build_switcher() {
+  mkdir -p "$DIST/skin/os-theme"
+  list=""
+  for f in "$THEMES"/*/theme.css; do
+    n=$(basename "$(dirname "$f")")
+    theme_css "$n" > "$DIST/skin/os-theme/$n.css"
+    list="$list[\"$n\",\"$(meta "$f" name)\",\"$(meta "$f" scheme)\",\"$(token "$f" --bg)\",\"$(token "$f" --accent)\",\"$(token "$f" --line-strong)\"],"
+  done
+  {
+    cat "$BASE/upstream/polyfills.js"
+    echo
+    echo "/* offline-shelf: everything below is added to the stock polyfills.js above. */"
+    echo "var OS_THEMES = [${list%,}];"
+    cat "$BASE/switcher.js"
+  } > "$DIST/skin/polyfills.js"
 }
 
 cmd_list() {
@@ -125,11 +163,17 @@ cmd_build() {
   mkdir -p "$out" "$DIST/skin"
   compose_kiwix_css "$light" "$dark" > "$out/kiwix.css"
   cp "$BASE/skin/index.css" "$BASE/skin/taskbar.css" "$DIST/skin/"
-  cat > "$out/resources.txt" <<EOF
-/skin/kiwix.css text/css $prefix/$pack/kiwix.css
-/skin/index.css text/css $prefix/skin/index.css
-/skin/taskbar.css text/css $prefix/skin/taskbar.css
-EOF
+  build_switcher
+  {
+    echo "/skin/kiwix.css text/css $prefix/$pack/kiwix.css"
+    echo "/skin/index.css text/css $prefix/skin/index.css"
+    echo "/skin/taskbar.css text/css $prefix/skin/taskbar.css"
+    echo "/skin/polyfills.js application/javascript $prefix/skin/polyfills.js"
+    for f in "$THEMES"/*/theme.css; do
+      n=$(basename "$(dirname "$f")")
+      echo "/skin/os-theme/$n.css text/css $prefix/skin/os-theme/$n.css"
+    done
+  } > "$out/resources.txt"
   echo "Built $pack"
 }
 
@@ -169,7 +213,7 @@ cmd_check_server() {
   for f in kiwix.css; do
     curl -fsS "$url/skin/$f" | cmp -s - "$DIST/$pack/$f" && echo "ok   /skin/$f" || { echo "DIFF /skin/$f"; ok=1; }
   done
-  for f in index.css taskbar.css; do
+  for f in index.css taskbar.css polyfills.js os-theme/papier.css; do
     curl -fsS "$url/skin/$f" | cmp -s - "$DIST/skin/$f" && echo "ok   /skin/$f" || { echo "DIFF /skin/$f"; ok=1; }
   done
   return $ok

@@ -1,3 +1,14 @@
 /skin/kiwix.css text/css /themes/zeitung+bunker/kiwix.css
 /skin/index.css text/css /themes/skin/index.css
 /skin/taskbar.css text/css /themes/skin/taskbar.css
+/skin/polyfills.js application/javascript /themes/skin/polyfills.js
+/skin/os-theme/atlas.css text/css /themes/skin/os-theme/atlas.css
+/skin/os-theme/bunker.css text/css /themes/skin/os-theme/bunker.css
+/skin/os-theme/lampenlicht.css text/css /themes/skin/os-theme/lampenlicht.css
+/skin/os-theme/mitternacht.css text/css /themes/skin/os-theme/mitternacht.css
+/skin/os-theme/papier.css text/css /themes/skin/os-theme/papier.css
+/skin/os-theme/rotlicht.css text/css /themes/skin/os-theme/rotlicht.css
+/skin/os-theme/salbei.css text/css /themes/skin/os-theme/salbei.css
+/skin/os-theme/signal.css text/css /themes/skin/os-theme/signal.css
+/skin/os-theme/werkstatt.css text/css /themes/skin/os-theme/werkstatt.css
+/skin/os-theme/zeitung.css text/css /themes/skin/os-theme/zeitung.css

@@ -228,6 +228,11 @@ label[for="kiwix_button_show_toggle"] {
   pointer-events: none;
 }
 
+#kiwixtoolbar > #os-theme-btn::before {
+  -webkit-mask-image: var(--m-theme);
+  mask-image: var(--m-theme);
+}
+
 #kiwixtoolbar #uiLanguageSelectorButton {
   width: 20px;
   height: 20px;
