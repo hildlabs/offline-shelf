@@ -7,9 +7,23 @@
 
 :root {
   --gutter: 16px;
-  --content: 1248px;
+  /* Width of the card grid, so the top bar lines up with the cards.
+     One column is 300px card + 2 x 8px gap; Isotope centres the grid. */
+  --content: 100%;
   --control-h: 2.75rem;
   --tile-gap: 8px;
+
+  /* Index tab colours per collection (muted, readable on both schemes) */
+  --tab: var(--line-strong);
+  --tab-wikipedia: #56708f;
+  --tab-wiktionary: #8a5f7d;
+  --tab-wikivoyage: #4c7c69;
+  --tab-wikibooks: #a37b25;
+  --tab-howto: #a8553a;
+  --tab-gutenberg: #6c7339;
+  --tab-qa: #4f6f86;
+  --tab-video: #8b4a4a;
+  --icon-tile: #faf8f3;
   --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='8.5' cy='8.5' r='5.75' fill='none' stroke='%235e574b' stroke-width='1.6'/%3E%3Cpath d='m13 13 4.25 4.25' stroke='%235e574b' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   --close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 3 6 6M9 3 3 9' stroke='%233b362d' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   --book-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='.5' y='.5' width='39' height='39' rx='5.5' fill='%23ece6da' stroke='%23ddd5c6'/%3E%3Cpath d='M13 11.5h12.5a1.5 1.5 0 0 1 1.5 1.5v15.5H14.5a1.5 1.5 0 0 1-1.5-1.5Zm0 15.5a1.5 1.5 0 0 1 1.5-1.5H27' fill='none' stroke='%235e574b' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -20,8 +34,22 @@
     --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='8.5' cy='8.5' r='5.75' fill='none' stroke='%23a69e8f' stroke-width='1.6'/%3E%3Cpath d='m13 13 4.25 4.25' stroke='%23a69e8f' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
     --close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 3 6 6M9 3 3 9' stroke='%23d6cfc1' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
     --book-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='.5' y='.5' width='39' height='39' rx='5.5' fill='%2326231d' stroke='%23322e26'/%3E%3Cpath d='M13 11.5h12.5a1.5 1.5 0 0 1 1.5 1.5v15.5H14.5a1.5 1.5 0 0 1-1.5-1.5Zm0 15.5a1.5 1.5 0 0 1 1.5-1.5H27' fill='none' stroke='%23a69e8f' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --tab-wikipedia: #7d97b6;
+    --tab-wiktionary: #b088a4;
+    --tab-wikivoyage: #74a58f;
+    --tab-wikibooks: #caa24a;
+    --tab-howto: #cf7d5f;
+    --tab-gutenberg: #9ea366;
+    --tab-qa: #7898b0;
+    --tab-video: #c07777;
+    --icon-tile: #ede7db;
   }
 }
+
+@media screen and (min-width: 681px)  { :root { --content: 616px; } }
+@media screen and (min-width: 965px)  { :root { --content: 932px; } }
+@media screen and (min-width: 1281px) { :root { --content: 1248px; } }
+@media screen and (min-width: 1597px) { :root { --content: 1564px; } }
 
 /* ---------- Top bar ---------- */
 
@@ -43,6 +71,35 @@
   transition: top 220ms var(--ease-out);
 }
 
+/* The bar sits flat on the page and only gains its edge once the page
+   scrolls under it. Pure CSS (scroll-driven animation, compositor only);
+   older browsers simply keep the static line above. */
+@supports (animation-timeline: scroll()) {
+  .kiwixNav {
+    border-bottom-color: transparent;
+  }
+
+  .kiwixNav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--line);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    animation: nav-edge linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 48px;
+  }
+}
+
+@keyframes nav-edge {
+  to { opacity: 1; }
+}
+
 .kiwixNav > #feedLink { grid-area: feed; }
 .kiwixNav > a:not(#feedLink) { grid-area: lang; }
 .kiwixNav__filters { grid-area: filters; }
@@ -57,11 +114,15 @@
   height: var(--control-h);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background-color var(--t-fast) ease;
+  transition: background-color var(--t-fast) ease, transform var(--t-fast) var(--ease-out);
 }
 
 .kiwixNav > a:hover {
   background-color: var(--surface-2);
+}
+
+.kiwixNav > a:active {
+  transform: scale(0.94);
 }
 
 .feedLogo {
@@ -96,7 +157,8 @@
   background-size: 18px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  transition: border-color var(--t-fast) ease;
+  box-shadow: 0 0 0 0 transparent;
+  transition: border-color var(--t-fast) ease, box-shadow var(--t) var(--ease-out);
 }
 
 .kiwixSearch::placeholder {
@@ -109,9 +171,9 @@
 }
 
 .kiwixSearch:focus {
-  outline: 2px solid var(--focus);
-  outline-offset: -1px;
+  outline: 0;
   border-color: var(--focus);
+  box-shadow: 0 0 0 3px var(--accent-soft), inset 0 0 0 1px var(--focus);
 }
 
 .kiwixSearch::-webkit-search-cancel-button {
@@ -163,6 +225,13 @@
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
   white-space: nowrap;
+  cursor: pointer;
+  animation: chip-in var(--t) var(--ease-out);
+  transition: border-color var(--t-fast) ease, transform var(--t-fast) var(--ease-out);
+}
+
+.tagFilterLabel:active {
+  transform: scale(0.96);
 }
 
 .tagFilterLabel:hover {
@@ -216,7 +285,7 @@
   outline: 0;
   text-overflow: ellipsis;
   cursor: pointer;
-  transition: border-color var(--t-fast) ease;
+  transition: border-color var(--t-fast) ease, box-shadow var(--t) var(--ease-out), background-color var(--t) ease;
 }
 
 .kiwixNav__kiwixFilter:hover {
@@ -224,9 +293,9 @@
 }
 
 .kiwixNav__kiwixFilter:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: -1px;
+  outline: 0;
   border-color: var(--focus);
+  box-shadow: 0 0 0 3px var(--accent-soft), inset 0 0 0 1px var(--focus);
 }
 
 /* A filter with a value: index.js marks it with an inline grey background */
@@ -254,14 +323,17 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  /* At most five columns, so wide screens keep a calm reading width */
+  max-width: 1600px;
+  margin: 0 auto;
   min-height: calc(100vh - 140px);
-  padding: 32px 0 24px;
+  padding: 36px 0 24px;
 }
 
 .book__list {
   position: relative;
   margin: 0 auto;
-  padding-top: 52px;
+  padding-top: 64px;
 }
 
 .kiwixHomeBody__results {
@@ -270,12 +342,13 @@
   left: var(--tile-gap);
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   color: var(--ink);
   font-variant-numeric: lining-nums tabular-nums;
+  animation: rise var(--t) var(--ease-out) backwards;
 }
 
 .noResults {
@@ -284,6 +357,7 @@
   font-size: 1rem;
   color: var(--muted);
   text-align: center;
+  animation: rise var(--t) var(--ease-out) backwards;
 }
 
 .noResults > a {
@@ -293,9 +367,28 @@
 
 /* ---------- Book card ---------- */
 
+/* Isotope animates .book itself (reveal and re-sorting) with inline
+   durations; a softer curve makes those moves settle instead of drift. */
 .book {
   border-color: transparent;
+  transition-timing-function: var(--ease-out);
 }
+
+/* Collection colour for the index tab. :has() is progressive: browsers
+   without it show a neutral tab. */
+.book:has([data-tag="wikipedia"]) { --tab: var(--tab-wikipedia); }
+.book:has([data-tag="wiktionary"]) { --tab: var(--tab-wiktionary); }
+.book:has([data-tag="wikivoyage"]) { --tab: var(--tab-wikivoyage); }
+.book:has([data-tag="wikibooks"]),
+.book:has([data-tag="wikiversity"]),
+.book:has([data-tag="wikisource"]) { --tab: var(--tab-wikibooks); }
+.book:has([data-tag="wikihow"]),
+.book:has([data-tag="ifixit"]) { --tab: var(--tab-howto); }
+.book:has([data-tag="gutenberg"]) { --tab: var(--tab-gutenberg); }
+.book:has([data-tag="stack_exchange"]),
+.book:has([data-tag="stackexchange"]) { --tab: var(--tab-qa); }
+.book:has([data-tag="ted"]),
+.book:has([data-tag="youtube"]) { --tab: var(--tab-video); }
 
 .book__wrapper {
   --tile-width: 300px;
@@ -306,20 +399,87 @@
   flex-direction: column;
   width: var(--tile-width);
   height: auto;
-  margin: var(--tile-gap);
+  margin: 14px var(--tile-gap) 2px;
   color: var(--ink-2);
   background-color: var(--surface);
   border: var(--tile-border-width) solid var(--line);
-  border-radius: var(--tile-border-radius);
-  transition: border-color var(--t) ease, background-color var(--t) ease, transform var(--t-fast) var(--ease-out);
+  border-radius: 0 var(--tile-border-radius) var(--tile-border-radius) var(--tile-border-radius);
+  transition:
+    border-color var(--t) ease,
+    transform var(--t) var(--ease-out);
+  /* Cards settle in once: a short rise, staggered for the first rows */
+  animation: rise 320ms var(--ease-out) 60ms backwards;
 }
 
-.book__wrapper:hover {
-  border-color: var(--line-strong);
+.book:nth-child(3) .book__wrapper { animation-delay: 90ms; }
+.book:nth-child(4) .book__wrapper { animation-delay: 120ms; }
+.book:nth-child(5) .book__wrapper { animation-delay: 150ms; }
+.book:nth-child(6) .book__wrapper { animation-delay: 180ms; }
+.book:nth-child(7) .book__wrapper { animation-delay: 210ms; }
+.book:nth-child(8) .book__wrapper { animation-delay: 240ms; }
+.book:nth-child(n+9) .book__wrapper { animation-delay: 270ms; }
+
+/* The index tab: the card's signature, sitting on its top edge */
+.book__wrapper::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: -1px;
+  width: 64px;
+  height: 7px;
+  background-color: var(--tab);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transform-origin: 50% 100%;
+  transition: transform var(--t) var(--ease-out);
+}
+
+/* Lift shadow, painted once and faded in, so hover never repaints a shadow */
+.book__wrapper::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: inherit;
+  box-shadow: 0 10px 24px -10px rgba(40, 30, 15, 0.28), 0 2px 6px -2px rgba(40, 30, 15, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t) var(--ease-out);
+}
+
+@media (prefers-color-scheme: dark) {
+  .book__wrapper::after {
+    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (hover: hover) {
+  .book__wrapper:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-3px);
+  }
+
+  .book__wrapper:hover::before {
+    transform: scaleY(1.45);
+  }
+
+  .book__wrapper:hover::after {
+    opacity: 1;
+  }
+
+  .book__wrapper:hover #book__title {
+    color: var(--accent);
+  }
+
+  .book__wrapper:hover .book__icon {
+    transform: scale(1.06);
+  }
 }
 
 .book__wrapper:active {
-  transform: scale(0.985);
+  transform: translateY(-1px) scale(0.985);
+  transition-duration: var(--t-fast);
 }
 
 .book__link {
@@ -330,44 +490,58 @@
 }
 
 /* Keyboard focus: the ring wraps the whole card, drawn from the link */
-.book__link:focus-visible {
+.book__link:focus {
   outline: none;
 }
 
 .book__link:focus-visible::after {
   content: "";
   position: absolute;
-  top: -4px;
+  z-index: 1;
+  top: -11px; /* encloses the index tab */
   right: -4px;
   bottom: -4px;
   left: -4px;
   border: 2px solid var(--focus);
   border-radius: calc(var(--tile-border-radius) + 3px);
   pointer-events: none;
+  animation: ring-in var(--t) var(--ease-out);
 }
 
 .book__link__wrapper {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-columns: 44px minmax(0, 1fr);
   grid-template-rows: auto auto;
   grid-template-areas:
     "bookIcon bookHeader"
     "bookDesc bookDesc";
   column-gap: 12px;
   row-gap: 12px;
-  padding: 16px 16px 0;
+  padding: 18px 16px 0;
 }
 
+/* Logos sit on a small paper tile in both schemes, so dark logos
+   (Wiktionary, Gutenberg) stay readable on the dark card */
 .book__icon {
   grid-area: bookIcon;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   margin: 0;
+  background-color: var(--icon-tile);
   background-image: var(--book-icon);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 30px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(40, 30, 15, 0.1);
+  transition: transform var(--t) var(--ease-out);
+}
+
+/* No logo in the ZIM: the drawn placeholder brings its own tile */
+.book__icon:not([style]) {
+  background-color: transparent;
   background-size: contain;
-  border-radius: var(--radius-sm);
+  box-shadow: none;
 }
 
 .book__header {
@@ -387,11 +561,13 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-family: var(--serif);
-  font-size: 1.125rem;
+  font-size: 1.1875rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.22;
+  letter-spacing: -0.005em;
   color: var(--ink);
   overflow-wrap: anywhere;
+  transition: color var(--t) ease;
 }
 
 .book__description {
@@ -413,8 +589,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px;
-  margin-top: auto;
+  padding: 14px 16px;
+  margin-top: 16px;
+  border-top: 1px dashed var(--line);
 }
 
 .book__languageTag {
@@ -425,8 +602,10 @@
   min-width: 2rem;
   height: 1.5rem;
   padding: 0 6px;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   line-height: 1;
   color: var(--ink-2);
   background-color: var(--surface-2);
@@ -644,18 +823,44 @@
   }
 
   .book__list {
-    padding-top: 44px;
+    padding-top: 52px;
   }
 
   .kiwixHomeBody__results {
-    font-size: 1.3125rem;
+    font-size: 1.625rem;
   }
 
+  /* One column, card edges flush with the top bar */
   .book__wrapper {
-    --tile-width: calc(100vw - 2 * var(--gutter) - 2 * var(--tile-gap));
+    --tile-width: calc(100vw - 2 * var(--gutter));
   }
 
   .book__description {
     min-height: 0;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@keyframes chip-in {
+  from { opacity: 0; transform: scale(0.94); }
+}
+
+@keyframes ring-in {
+  from { opacity: 0; transform: scale(1.03); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book__wrapper,
+  .kiwixHomeBody__results {
+    animation: none !important;
+  }
+
+  .book__wrapper:hover {
+    transform: none;
   }
 }

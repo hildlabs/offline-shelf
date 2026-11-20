@@ -246,6 +246,29 @@ a {
   height: 22px;
 }
 
+.modal-wrapper {
+  animation: fade-in var(--t) ease;
+}
+
+/* Opening a book or going back: a short cross-fade between the library and
+   the reader instead of a white flash. CSS only; browsers without support
+   (Firefox, older Safari and Chrome) just switch pages as before. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: var(--ease-out);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
