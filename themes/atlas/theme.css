@@ -1,0 +1,43 @@
+/*! name: Atlas | scheme: light | about: Cool map paper with a faint graticule, petrol accent, spaced capital titles like map labels, coordinates in monospace. */
+:root {
+  color-scheme: light;
+  --bg: #edf1f2;
+  --surface: #f9fbfb;
+  --surface-2: #e0e8ea;
+  --line: #cdd8db;
+  --line-strong: #9fb0b5;
+  --ink: #122024;
+  --ink-2: #263a40;
+  --muted: #4a5f65;
+  --accent: #0a6a6a;
+  --accent-hover: #075656;
+  --accent-ink: #ffffff;
+  --accent-soft: #d0eae8;
+  --focus: #0a8080;
+  --overlay: rgba(18, 32, 36, 0.45);
+  --shadow-soft: rgba(18, 40, 46, 0.16);
+  --card-shadow: 0 10px 22px -12px rgba(18, 40, 46, 0.35);
+  --icon-tile: #ffffff;
+  --font-title: var(--sans);
+  --font-meta: var(--mono);
+  --title-weight: 700;
+  --title-transform: uppercase;
+  --title-tracking: 0.07em;
+  --heading-size: 1.625rem;
+  --card-title-size: 0.9375rem;
+  --radius: 3px;
+  --radius-sm: 2px;
+  --card-radius: 3px;
+  --card-corner-tl: 3px;
+  --icon-radius: 50%;
+  --tab-display: none;
+  --meta-rule: solid;
+}
+/* A faint graticule, like the grid on a map sheet. Static, painted once. */
+html body {
+  background-image:
+    linear-gradient(rgba(10, 106, 106, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 106, 106, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+html .kiwixNav { background-color: rgba(237, 241, 242, 0.96); }

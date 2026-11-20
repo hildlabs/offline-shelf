@@ -13,8 +13,8 @@ web server that serves Wikipedia and other ZIM archives without internet.
   external URL.
 - **No extra software.** No proxy, no fork, no rebuild of Kiwix. Themes use a
   mechanism kiwix-serve already ships.
-- **Small.** A theme is a handful of CSS files, plus local fonts or images if
-  it needs them. Runs fine on a Raspberry Pi.
+- **Small.** A pack is three CSS files, about 42 KB together, with system
+  fonts only. Runs fine on a Raspberry Pi and on old phones.
 
 ## How it works
 
@@ -22,63 +22,103 @@ kiwix-serve reads the environment variable `KIWIX_SERVE_CUSTOMIZED_RESOURCES`.
 It points to a text file where each line maps a URL to a local file:
 
 ```
-/skin/index.css text/css /themes/mytheme/files/skin/index.css
+/skin/index.css text/css /themes/skin/index.css
 ```
 
-kiwix-serve then serves that file instead of its built-in one. A theme in this
-repository is a folder whose `files/` directory mirrors the URLs it replaces,
-plus a generated `resources.txt`. Details and caveats are in
-[docs/how-it-works.md](docs/how-it-works.md).
+kiwix-serve then serves that file instead of its built-in one. Details and
+caveats are in [docs/how-it-works.md](docs/how-it-works.md).
 
-## Use a theme
+This repository replaces three files: `kiwix.css` (loaded on every page),
+`index.css` (library page) and `taskbar.css` (the toolbar above an opened
+book). The layout lives once in [base/](base/). Each theme is a single
+`themes/<name>/theme.css` holding only colours, fonts and shapes as CSS
+custom properties, plus a few extra rules where a theme needs them.
 
-With Docker, mount the `themes/` folder and set the variable to the theme's
-`resources.txt`:
+## Pick your themes
+
+You choose **one theme for light devices and one for dark devices**. Every
+phone or computer then gets the one that matches its own light or dark
+setting, with no switch and no JavaScript. The 25 combinations are prebuilt in
+[dist/](dist/) as `dist/<light>+<dark>/`.
+
+With Docker, mount `dist/` and point the variable at a pack:
 
 ```yaml
 volumes:
-  - ./offline-shelf/themes:/themes:ro
+  - ./offline-shelf/dist:/themes:ro
 environment:
-  KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/<theme>/resources.txt
+  KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/papier+lampenlicht/resources.txt
 ```
 
-A complete file is in [examples/docker-compose.yml](examples/docker-compose.yml).
-Without Docker, run `tools/kiwix-theme build <theme> /path/to/offline-shelf/themes`
-first, so `resources.txt` contains paths that exist on your machine.
+Change the pack name, then `docker compose up -d kiwix` (kiwix-serve reads the
+file at startup). A complete file is in
+[examples/docker-compose.yml](examples/docker-compose.yml). Without Docker, run
+`tools/kiwix-theme build-all /path/to/offline-shelf/dist` first, so the paths
+in `resources.txt` exist on your machine.
 
 To return to the stock look, remove the variable and restart kiwix-serve.
 
-## Available themes
+## Themes
 
-| Theme | Look | Covers |
-| ----- | ---- | ------ |
-| [kartei](themes/kartei/) | Quiet library card index, light and dark by device setting | Library page |
+### Light
 
-![Kartei, dark](themes/kartei/screenshots/desktop-dark.png)
+| Theme | Look |
+| ----- | ---- |
+| [Papier](themes/papier/) | Warm paper, near-black ink, serif titles, coloured index tabs per collection |
+| [Atlas](themes/atlas/) | Cool map paper with a faint graticule, petrol accent, spaced capital titles, monospace details |
+| [Zeitung](themes/zeitung/) | Newsprint: black on white, square, heavy serif headlines, red accent, greyscale logos |
+| [Werkstatt](themes/werkstatt/) | Workshop grey, heavy 2px outlines, blueprint blue, monospace labels |
+| [Salbei](themes/salbei/) | Sage green, round shapes and logos, rounded type |
+
+### Dark
+
+| Theme | Look |
+| ----- | ---- |
+| [Lampenlicht](themes/lampenlicht/) | Warm black, cream text, amber accent, coloured index tabs |
+| [Bunker](themes/bunker/) | Phosphor terminal: black-green, monospace everywhere, dashed outlines, blinking cursor |
+| [Mitternacht](themes/mitternacht/) | Night blue, ivory text, gold accent, italic serif titles |
+| [Signal](themes/signal/) | Charcoal with safety orange, bold capitals, hazard-striped tabs |
+| [Rotlicht](themes/rotlicht/) | Night vision for blackouts: black and dim red only, the article is tinted red too |
+
+Every theme covers the library page and the reader toolbar, and the text in
+each meets WCAG AA contrast (4.5:1 or more). Each folder has a `preview.png`.
+
+![Papier](themes/papier/preview.png)
+![Bunker](themes/bunker/preview.png)
+
+**About the article itself.** The page below the toolbar is the book's own
+HTML from the ZIM file, with its own styles and, for most Wikimedia books,
+its own dark mode that follows the device. Themes do not restyle it. The one
+exception is Rotlicht, which tints the whole article red with a CSS filter so
+your eyes keep their dark adaptation. On books without a dark mode this gives
+a red page rather than a dark one.
 
 ## Make a theme
 
+Copy a folder in `themes/`, change the values in its `theme.css` (every colour
+token listed in `tools/kiwix-theme` must be defined), then:
+
 ```sh
-tools/kiwix-theme new mytheme
-tools/kiwix-theme base mytheme http://localhost:8080   # copy stock CSS from your server
-# edit themes/mytheme/files/skin/*.css
-tools/kiwix-theme build mytheme
-tools/kiwix-theme check mytheme http://localhost:8080  # after restarting kiwix-serve with the theme
+tools/kiwix-theme check                    # all colour tokens present?
+tools/kiwix-theme build mytheme lampenlicht
+tools/kiwix-theme check-server http://localhost:8080 mytheme+lampenlicht
 ```
 
-The helper is a plain POSIX shell script. It is only needed to create themes,
-not to run them.
+The first line of `theme.css` carries the name, the scheme (`light` or
+`dark`) and a one-line description. Rules after the `:root` block are extras
+and only apply while that theme is active. The helper is a plain POSIX shell
+script; it is only needed to build packs, not to run them.
 
 ## Compatibility
 
 | kiwix-serve | libkiwix | Mechanism works |
 | ----------- | -------- | --------------- |
 | 3.5.0       | 12.1.1   | yes (tested)    |
-| 3.x on libkiwix 14.x | 14.0.0–14.2.1 | yes, used by the kartei theme |
+| 3.8.2 (Docker image) | 14.x | yes, all themes tested against libkiwix 14.2.1 pages |
 | latest      | 15.x     | present in source, not yet tested end to end |
 
-Stock CSS changes between Kiwix releases. Each theme notes the version it was
-tested with.
+Stock CSS changes between Kiwix releases. The themes were built against the
+libkiwix 14.x page markup.
 
 ## License
 

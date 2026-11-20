@@ -1,0 +1,429 @@
+/*
+ * offline-shelf · shared layout · taskbar.css
+ * The reader toolbar above every opened book (kiwix-serve, libkiwix 14.x).
+ * Replaces the stock taskbar.css; all colours, fonts and shapes come from
+ * the theme tokens in kiwix.css.
+ * The article below is the book's own HTML and keeps the book's own styles.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+:root {
+  --bar-h: 3.5rem;
+  --btn: 2.5rem;
+}
+
+/* ---------- Bar ---------- */
+
+#kiwixtoolbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: var(--bar-h);
+  padding: 8px 16px;
+  box-sizing: border-box;
+  color: var(--ink);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  /* viewer.js slides the bar away on phones by setting an inline top */
+  transition: top 220ms var(--ease-out);
+}
+
+.kiwix .kiwix_centered {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+}
+
+/* Buttons first, search after them, whatever the source order */
+.kiwix_button_cont {
+  order: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+#kiwix_serve_taskbar_book_ui_group {
+  /* viewer.js sets display: inline; keep the children in one row anyway */
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+#kiwix_serve_taskbar_book_ui_group[style*="inline"] {
+  display: inline-flex !important;
+}
+
+.kiwix_searchform {
+  order: 2;
+  flex: 1 1 18rem;
+  min-width: 0;
+  max-width: 30rem;
+  margin-left: auto;
+}
+
+/* The caret toggle that hid the buttons on phones is not needed:
+   the buttons are icons and always fit */
+#kiwix_button_show_toggle,
+label[for="kiwix_button_show_toggle"] {
+  display: none;
+}
+
+/* ---------- Buttons ---------- */
+
+.kiwix_button_cont > a,
+#kiwix_serve_taskbar_book_ui_group > a {
+  display: block;
+  min-width: 0;
+  text-decoration: none;
+}
+
+#kiwixtoolbar button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--btn);
+  min-width: var(--btn);
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--ink);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--t-fast) ease, transform var(--t-fast) var(--ease-out);
+}
+
+#kiwixtoolbar button:hover {
+  background-color: var(--surface-2);
+}
+
+#kiwixtoolbar button:active {
+  transform: scale(0.94);
+}
+
+#kiwixtoolbar a:focus-visible {
+  outline: none;
+}
+
+#kiwixtoolbar a:focus-visible > button,
+#kiwixtoolbar > a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* Library and random: the stock emoji labels are swapped for line icons.
+   The accessible names stay, they come from the links' aria-labels. */
+#kiwix_serve_taskbar_library_button button,
+#kiwix_serve_taskbar_random_button button {
+  width: var(--btn);
+  font-size: 0;
+}
+
+/* Icons are masks filled with the theme's ink, so no image is themed */
+#kiwix_serve_taskbar_library_button button::before,
+#kiwix_serve_taskbar_random_button button::before,
+#kiwix_serve_taskbar_home_button button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  background-color: var(--ink-2);
+  -webkit-mask: var(--m-shelf) center / contain no-repeat;
+  mask: var(--m-shelf) center / contain no-repeat;
+}
+
+#kiwix_serve_taskbar_random_button button::before {
+  -webkit-mask-image: var(--m-shuffle);
+  mask-image: var(--m-shuffle);
+}
+
+#kiwix_serve_taskbar_home_button button::before {
+  left: 10px;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 0;
+  -webkit-mask-image: var(--m-book);
+  mask-image: var(--m-book);
+}
+
+/* The current book: its title, linking to the book's main page */
+#kiwix_serve_taskbar_home_button button {
+  display: block;
+  max-width: 40ch;
+  padding: 0 12px 0 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-title);
+  font-size: 1.0625rem;
+  font-weight: var(--title-weight);
+  letter-spacing: var(--title-tracking);
+  text-transform: var(--title-transform);
+  line-height: var(--btn);
+  text-align: left;
+}
+
+/* A thin divider between "library" and "this book" */
+#kiwix_serve_taskbar_book_ui_group {
+  padding-left: 8px;
+  margin-left: 4px;
+  border-left: 1px solid var(--line);
+}
+
+/* UI language */
+#kiwixtoolbar > a {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--btn);
+  height: var(--btn);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--t-fast) ease, transform var(--t-fast) var(--ease-out);
+}
+
+#kiwixtoolbar > a:hover {
+  background-color: var(--surface-2);
+}
+
+#kiwixtoolbar > a:active {
+  transform: scale(0.94);
+}
+
+#kiwixtoolbar > a {
+  position: relative;
+  color: var(--ink-2);
+}
+
+#kiwixtoolbar > a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  background-color: currentColor;
+  -webkit-mask: var(--m-globe) center / contain no-repeat;
+  mask: var(--m-globe) center / contain no-repeat;
+  pointer-events: none;
+}
+
+#kiwixtoolbar #uiLanguageSelectorButton {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+}
+
+/* ---------- Search ---------- */
+
+.kiwixsearch {
+  position: relative;
+  width: 100%;
+  height: var(--btn);
+  margin: 0;
+}
+
+.kiwixsearch .autoComplete_wrapper {
+  display: block;
+  width: 100%;
+}
+
+label[for="kiwixsearchbox"] {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  font-size: 0;
+  pointer-events: none;
+}
+
+label[for="kiwixsearchbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  background-color: var(--muted);
+  -webkit-mask: var(--m-search) center / contain no-repeat;
+  mask: var(--m-search) center / contain no-repeat;
+}
+
+#kiwixtoolbar #kiwixsearchbox {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--btn);
+  padding: 0 12px 0 38px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: var(--control-border) solid var(--line-strong);
+  border-radius: var(--radius);
+  outline: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: border-color var(--t-fast) ease, box-shadow var(--t) var(--ease-out);
+}
+
+#kiwixtoolbar #kiwixsearchbox::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+#kiwixtoolbar #kiwixsearchbox:hover {
+  border-color: var(--muted);
+}
+
+#kiwixtoolbar #kiwixsearchbox:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px var(--accent-soft), inset 0 0 0 1px var(--focus);
+}
+
+/* Suggestions */
+#kiwixtoolbar .autoComplete_wrapper > ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: auto;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(36rem, calc(100vw - 32px));
+  max-height: none;
+  margin: 6px 0 0;
+  padding: 4px;
+  overflow: hidden;
+  column-count: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px -12px var(--shadow-soft);
+  transform-origin: top left;
+  transition: opacity var(--t-fast) ease, transform var(--t) var(--ease-out);
+}
+
+#kiwixtoolbar .autoComplete_wrapper > ul[hidden],
+#kiwixtoolbar .autoComplete_wrapper > ul:empty {
+  display: block;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+#kiwixtoolbar .autoComplete_wrapper > ul > li {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: transparent;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--t-fast) ease;
+}
+
+#kiwixtoolbar .autoComplete_wrapper > ul > li:hover,
+#kiwixtoolbar .autoComplete_wrapper > ul > li[aria-selected="true"] {
+  background: var(--surface-2);
+}
+
+a.suggest,
+a.suggest:visited,
+a.suggest:hover,
+a.suggest:active {
+  display: block;
+  padding: 8px 10px;
+  font-size: 0.9375rem;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#kiwixtoolbar .autoComplete_wrapper mark {
+  color: var(--accent);
+  background: transparent;
+  font-weight: 700;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 1100px) {
+  #kiwix_serve_taskbar_home_button button {
+    max-width: 24ch;
+  }
+}
+
+@media (max-width: 720px) {
+  #kiwixtoolbar {
+    padding: 8px 12px;
+    gap: 4px;
+  }
+
+  /* The book title becomes a book icon */
+  #kiwix_serve_taskbar_home_button button {
+    width: var(--btn);
+    padding: 0;
+    font-size: 0;
+  }
+
+  #kiwix_serve_taskbar_home_button button::before {
+    left: 50%;
+    margin-left: -9px;
+  }
+
+  .kiwix_searchform {
+    flex-basis: 8rem;
+  }
+}
+
+/* While typing on a phone the search takes the whole row */
+@media (max-width: 645px) {
+  .kiwix_button_cont.searching {
+    display: none;
+  }
+
+  .kiwix_searchform.full_width {
+    max-width: none;
+  }
+}
+
+.height_separator {
+  height: 3em;
+}
+
+#kiwixfooter {
+  text-align: center;
+  margin-top: 1em;
+}
+
+/* The article itself is the book's own page. A theme can only tint it as a
+   whole (used by the red night-vision theme); default is no filter. */
+#content_iframe {
+  filter: var(--frame-filter);
+}

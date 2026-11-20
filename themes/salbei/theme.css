@@ -1,0 +1,38 @@
+/*! name: Salbei | scheme: light | about: Soft and friendly: sage green paper, round shapes everywhere, rounded type, round logos. */
+:root {
+  color-scheme: light;
+  --bg: #edf0e8;
+  --surface: #fafbf7;
+  --surface-2: #e1e7d9;
+  --line: #d2d9c9;
+  --line-strong: #a3ae96;
+  --ink: #1b2318;
+  --ink-2: #313b2d;
+  --muted: #535d4c;
+  --accent: #3d6833;
+  --accent-hover: #31552a;
+  --accent-ink: #ffffff;
+  --accent-soft: #dae9d2;
+  --focus: #4c853f;
+  --overlay: rgba(27, 35, 24, 0.4);
+  --shadow-soft: rgba(40, 60, 30, 0.16);
+  --card-shadow: 0 14px 30px -14px rgba(40, 60, 30, 0.35);
+  --icon-tile: #ffffff;
+  --font-ui: var(--rounded);
+  --font-title: var(--rounded);
+  --font-meta: var(--rounded);
+  --title-weight: 700;
+  --title-tracking: 0;
+  --radius: 999px;
+  --radius-sm: 999px;
+  --card-radius: 18px;
+  --card-corner-tl: 18px;
+  --icon-radius: 50%;
+  --tab-display: none;
+  --meta-rule: none;
+  --card-lift: -4px;
+}
+/* Pill controls need a little more side padding */
+html .kiwixSearch, html #kiwixtoolbar #kiwixsearchbox { padding-left: 42px; }
+html .kiwixNav__kiwixFilter { padding-left: 16px; }
+html .modal { border-radius: 18px; }
