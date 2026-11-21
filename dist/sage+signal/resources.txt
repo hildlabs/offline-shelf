@@ -1,0 +1,14 @@
+/skin/kiwix.css text/css /themes/sage+signal/kiwix.css
+/skin/index.css text/css /themes/skin/index.css
+/skin/taskbar.css text/css /themes/skin/taskbar.css
+/skin/polyfills.js application/javascript /themes/skin/polyfills.js
+/skin/os-theme/atlas.css text/css /themes/skin/os-theme/atlas.css
+/skin/os-theme/bunker.css text/css /themes/skin/os-theme/bunker.css
+/skin/os-theme/lamplight.css text/css /themes/skin/os-theme/lamplight.css
+/skin/os-theme/midnight.css text/css /themes/skin/os-theme/midnight.css
+/skin/os-theme/newsprint.css text/css /themes/skin/os-theme/newsprint.css
+/skin/os-theme/paper.css text/css /themes/skin/os-theme/paper.css
+/skin/os-theme/redlight.css text/css /themes/skin/os-theme/redlight.css
+/skin/os-theme/sage.css text/css /themes/skin/os-theme/sage.css
+/skin/os-theme/signal.css text/css /themes/skin/os-theme/signal.css
+/skin/os-theme/workshop.css text/css /themes/skin/os-theme/workshop.css

@@ -11,7 +11,7 @@ that kiwix-serve already knows how to serve.
 > **Unofficial.** This is a community project. It is not affiliated with or
 > endorsed by the Kiwix project.
 
-![The library page in Papier (light) and Lampenlicht (dark)](docs/screenshots/hero.png)
+![The library page in Paper (light) and Lamplight (dark)](docs/screenshots/hero.png)
 
 ## Features
 
@@ -21,7 +21,7 @@ that kiwix-serve already knows how to serve.
   laptop gets the one that matches its own light or dark setting.
 - **Theme menu in the browser.** Anyone on the network can choose a different
   theme for their own device. The server setting stays the default.
-- **Built for blackouts.** Works with no internet at all. *Rotlicht* is a
+- **Built for blackouts.** Works with no internet at all. *Red Light* is a
   red-only night mode that keeps your eyes adapted to the dark.
 - **Small.** About 56 KB per pack (14 KB gzipped), system fonts only (the stock Kiwix CSS
   alone ships 317 KB of web fonts). Fast on a Raspberry Pi and on old phones.
@@ -50,7 +50,7 @@ services:
       - ./offline-shelf/dist:/themes:ro
     environment:
       # /themes/<light theme>+<dark theme>/resources.txt
-      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/papier+lampenlicht/resources.txt
+      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/paper+lamplight/resources.txt
 ```
 
 Then `docker compose up -d`, open `http://<server>:8090` and reload once with
@@ -69,7 +69,7 @@ you serve them from first:
 
 ```sh
 tools/kiwix-theme build-all /srv/offline-shelf/dist
-KIWIX_SERVE_CUSTOMIZED_RESOURCES=/srv/offline-shelf/dist/papier+lampenlicht/resources.txt \
+KIWIX_SERVE_CUSTOMIZED_RESOURCES=/srv/offline-shelf/dist/paper+lamplight/resources.txt \
   kiwix-serve --port 8090 /srv/zim/*.zim
 ```
 
@@ -77,44 +77,41 @@ KIWIX_SERVE_CUSTOMIZED_RESOURCES=/srv/offline-shelf/dist/papier+lampenlicht/reso
 
 ## The themes
 
-Theme names are German, the language of the project's first home. The
-English meaning is in brackets.
-
 ### Light
 
 | | Theme | Look |
 |-|-------|------|
-| <img src="themes/papier/preview.png" width="280" alt="Papier"> | **[Papier](themes/papier/)** (paper) | Warm paper, near-black ink, serif titles, a coloured index tab per collection |
+| <img src="themes/paper/preview.png" width="280" alt="Paper"> | **[Paper](themes/paper/)** | Warm paper, near-black ink, serif titles, a coloured index tab per collection |
 | <img src="themes/atlas/preview.png" width="280" alt="Atlas"> | **[Atlas](themes/atlas/)** | Cool map paper with a faint grid, petrol accent, spaced capitals, monospace details |
-| <img src="themes/zeitung/preview.png" width="280" alt="Zeitung"> | **[Zeitung](themes/zeitung/)** (newspaper) | Black on white, square corners, heavy serif headlines, red accent, greyscale logos |
-| <img src="themes/werkstatt/preview.png" width="280" alt="Werkstatt"> | **[Werkstatt](themes/werkstatt/)** (workshop) | Workshop grey, heavy 2 px outlines, blueprint blue, monospace labels |
-| <img src="themes/salbei/preview.png" width="280" alt="Salbei"> | **[Salbei](themes/salbei/)** (sage) | Sage green, round shapes and logos, rounded type |
+| <img src="themes/newsprint/preview.png" width="280" alt="Newsprint"> | **[Newsprint](themes/newsprint/)** | Black on white, square corners, heavy serif headlines, red accent, greyscale logos |
+| <img src="themes/workshop/preview.png" width="280" alt="Workshop"> | **[Workshop](themes/workshop/)** | Workshop grey, heavy 2 px outlines, blueprint blue, monospace labels |
+| <img src="themes/sage/preview.png" width="280" alt="Sage"> | **[Sage](themes/sage/)** | Sage green, round shapes and logos, rounded type |
 
 ### Dark
 
 | | Theme | Look |
 |-|-------|------|
-| <img src="themes/lampenlicht/preview.png" width="280" alt="Lampenlicht"> | **[Lampenlicht](themes/lampenlicht/)** (lamplight) | Warm black, cream text, amber accent, coloured index tabs |
+| <img src="themes/lamplight/preview.png" width="280" alt="Lamplight"> | **[Lamplight](themes/lamplight/)** | Warm black, cream text, amber accent, coloured index tabs |
 | <img src="themes/bunker/preview.png" width="280" alt="Bunker"> | **[Bunker](themes/bunker/)** | Phosphor terminal: black and green, monospace everywhere, a blinking cursor |
-| <img src="themes/mitternacht/preview.png" width="280" alt="Mitternacht"> | **[Mitternacht](themes/mitternacht/)** (midnight) | Night blue, ivory text, gold accent, italic serif titles |
+| <img src="themes/midnight/preview.png" width="280" alt="Midnight"> | **[Midnight](themes/midnight/)** | Night blue, ivory text, gold accent, italic serif titles |
 | <img src="themes/signal/preview.png" width="280" alt="Signal"> | **[Signal](themes/signal/)** | Charcoal with safety orange, bold capitals, hazard-striped tabs |
-| <img src="themes/rotlicht/preview.png" width="280" alt="Rotlicht"> | **[Rotlicht](themes/rotlicht/)** (red light) | Night vision: black and dim red only, the article is tinted red too |
+| <img src="themes/redlight/preview.png" width="280" alt="Red Light"> | **[Red Light](themes/redlight/)** | Night vision: black and dim red only, the article is tinted red too |
 
 ### Reading and phones
 
 The reader toolbar follows the theme too: book title, search, random article,
 back to the library.
 
-![The reader toolbar in Papier, Bunker and Rotlicht](docs/screenshots/reader.png)
+![The reader toolbar in Paper, Bunker and Red Light](docs/screenshots/reader.png)
 
 Everything works on small screens, with touch-sized buttons and a toolbar
 that gets out of the way while you read.
 
-![Library and reader on phones in Papier, Lampenlicht, Bunker, Salbei and Rotlicht](docs/screenshots/phones.png)
+![Library and reader on phones in Paper, Lamplight, Bunker, Sage and Red Light](docs/screenshots/phones.png)
 
 **About the article itself.** The page below the toolbar is the book's own
 HTML from the ZIM file. It keeps its own styles and, for most Wikimedia books,
-its own dark mode. Themes leave it alone, with one exception: Rotlicht tints
+its own dark mode. Themes leave it alone, with one exception: Red Light tints
 the whole article red with a CSS filter. Books with a dark mode come out dark
 red, as above. Books without one come out as a bright red page.
 
@@ -125,7 +122,7 @@ red, as above. Books without one come out as a bright red page.
 Every pack adds a theme button (the half-filled circle) next to the language
 button, in the library and in the reader. It opens one short list:
 *Automatic* (the server's pack) and the ten themes. The choice is saved in that
-browser only, so a phone can stay on Rotlicht while the tablet keeps Papier.
+browser only, so a phone can stay on Red Light while the tablet keeps Paper.
 
 ![The theme menu](docs/screenshots/theme-menu.png)
 
@@ -143,14 +140,14 @@ your compose file, and use these two lines in it:
     volumes:
       - ./themes/offline-shelf:/themes:ro
     environment:
-      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/${KIWIX_THEME:-papier+lampenlicht}/resources.txt
+      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/${KIWIX_THEME:-paper+lamplight}/resources.txt
 ```
 
 Then, on the server:
 
 ```sh
 ./theme.sh                    # show the active pack and all themes
-./theme.sh zeitung rotlicht   # light theme first, dark theme second
+./theme.sh newsprint redlight # light theme first, dark theme second
 ./theme.sh off                # stock Kiwix look
 ```
 
@@ -189,8 +186,8 @@ Copy a folder in `themes/`, change the values in its `theme.css`, then:
 
 ```sh
 tools/kiwix-theme check                      # every colour token defined?
-tools/kiwix-theme build mytheme lampenlicht  # writes dist/mytheme+lampenlicht/
-tools/kiwix-theme check-server http://localhost:8090 mytheme+lampenlicht
+tools/kiwix-theme build mytheme lamplight  # writes dist/mytheme+lamplight/
+tools/kiwix-theme check-server http://localhost:8090 mytheme+lamplight
 ```
 
 The first line of `theme.css` holds the name, the scheme (`light` or `dark`)

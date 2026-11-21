@@ -1,0 +1,29 @@
+/*! name: Lamplight | scheme: dark | about: A lamp-lit desk: warm black, cream text, amber accent and coloured index tabs. */
+:root {
+  color-scheme: dark;
+  --bg: #14130f;
+  --surface: #1c1a16;
+  --surface-2: #26231d;
+  --line: #322e26;
+  --line-strong: #4d473c;
+  --ink: #ede7db;
+  --ink-2: #d6cfc1;
+  --muted: #a69e8f;
+  --accent: #e3a33b;
+  --accent-hover: #f0b553;
+  --accent-ink: #1a1408;
+  --accent-soft: #3a2c14;
+  --focus: #f0b553;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --shadow-soft: rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  --icon-tile: #ede7db;
+  --tab-wikipedia: #7d97b6;
+  --tab-wiktionary: #b088a4;
+  --tab-wikivoyage: #74a58f;
+  --tab-wikibooks: #caa24a;
+  --tab-howto: #cf7d5f;
+  --tab-gutenberg: #9ea366;
+  --tab-qa: #7898b0;
+  --tab-video: #c07777;
+}
