@@ -3,7 +3,8 @@
 #
 # Lives next to docker-compose.yml. The compose file reads the active pack
 # from KIWIX_THEME in the .env file next to it:
-#   KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/offline-shelf/${KIWIX_THEME:-papier+lampenlicht}/resources.txt
+#   KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/${KIWIX_THEME:-papier+lampenlicht}/resources.txt
+#   (with ./themes/offline-shelf mounted at /themes)
 #
 #   ./theme.sh                 show the active pack and all choices
 #   ./theme.sh zeitung rotlicht  switch: light theme first, dark theme second
