@@ -3,11 +3,11 @@
 #
 # Lives next to docker-compose.yml. The compose file reads the active pack
 # from KIWIX_THEME in the .env file next to it:
-#   KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/${KIWIX_THEME:-papier+lampenlicht}/resources.txt
+#   KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/${KIWIX_THEME:-paper+lamplight}/resources.txt
 #   (with ./themes/offline-shelf mounted at /themes)
 #
 #   ./theme.sh                 show the active pack and all choices
-#   ./theme.sh zeitung rotlicht  switch: light theme first, dark theme second
+#   ./theme.sh newsprint redlight  switch: light theme first, dark theme second
 #   ./theme.sh off             back to the stock Kiwix look
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -25,7 +25,7 @@ if [ $# -eq 0 ]; then
   echo "Light themes: $(ls -d "$PACKS"/*+* | sed 's#.*/##; s/+.*//' | sort -u | tr '\n' ' ')"
   echo "Dark themes:  $(ls -d "$PACKS"/*+* | sed 's#.*+##' | sort -u | tr '\n' ' ')"
   echo
-  echo "Switch with: $0 <light> <dark>   (e.g. $0 zeitung rotlicht)"
+  echo "Switch with: $0 <light> <dark>   (e.g. $0 newsprint redlight)"
   exit 0
 fi
 

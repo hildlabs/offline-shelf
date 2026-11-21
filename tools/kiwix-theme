@@ -213,7 +213,7 @@ cmd_check_server() {
   for f in kiwix.css; do
     curl -fsS "$url/skin/$f" | cmp -s - "$DIST/$pack/$f" && echo "ok   /skin/$f" || { echo "DIFF /skin/$f"; ok=1; }
   done
-  for f in index.css taskbar.css polyfills.js os-theme/papier.css; do
+  for f in index.css taskbar.css polyfills.js os-theme/paper.css; do
     curl -fsS "$url/skin/$f" | cmp -s - "$DIST/skin/$f" && echo "ok   /skin/$f" || { echo "DIFF /skin/$f"; ok=1; }
   done
   return $ok

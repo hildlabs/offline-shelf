@@ -1,0 +1,37 @@
+/*! name: Newsprint | scheme: light | about: Black on white, square corners, heavy serif headlines, red accent, black rules, logos in greyscale and a hard print shadow on hover. */
+:root {
+  color-scheme: light;
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --surface-2: #efede7;
+  --line: #d5d2ca;
+  --line-strong: #111111;
+  --ink: #111111;
+  --ink-2: #222222;
+  --muted: #525252;
+  --accent: #b0121b;
+  --accent-hover: #8c0e15;
+  --accent-ink: #ffffff;
+  --accent-soft: #f6dcdd;
+  --focus: #b0121b;
+  --overlay: rgba(0, 0, 0, 0.5);
+  --shadow-soft: rgba(0, 0, 0, 0.15);
+  --card-shadow: 5px 5px 0 #111111;
+  --icon-tile: #ffffff;
+  --font-title: Georgia, "Times New Roman", "Noto Serif", "DejaVu Serif", serif;
+  --title-weight: 800;
+  --title-tracking: -0.02em;
+  --heading-size: 2.75rem;
+  --card-title-size: 1.375rem;
+  --radius: 0;
+  --radius-sm: 0;
+  --card-radius: 0;
+  --icon-radius: 0;
+  --tab-display: none;
+  --meta-rule: solid;
+  --card-lift: -2px;
+  --logo-filter: grayscale(1) contrast(1.15);
+}
+html .kiwixHomeBody__results { border-bottom: 3px double #111111; padding-bottom: 6px; }
+html .book__wrapper:hover { border-color: #111111; }
+html .kiwixNav { border-bottom: 2px solid #111111; }

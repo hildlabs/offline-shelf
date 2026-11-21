@@ -2,7 +2,7 @@
 #
 # 1. Clone this repository next to your ZIM files.
 # 2. Pick a pack: one light and one dark theme, see dist/ (for example
-#    papier+lampenlicht or zeitung+rotlicht).
+#    paper+lamplight or newsprint+redlight).
 # 3. docker compose up -d
 #
 # To go back to the stock look, remove the KIWIX_SERVE_CUSTOMIZED_RESOURCES line.
@@ -18,5 +18,5 @@ services:
       - ./offline-shelf/dist:/themes:ro
     environment:
       # Path inside the container: /themes/<light>+<dark>/resources.txt
-      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/papier+lampenlicht/resources.txt
+      KIWIX_SERVE_CUSTOMIZED_RESOURCES: /themes/paper+lamplight/resources.txt
     restart: unless-stopped

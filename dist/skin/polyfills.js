@@ -21,7 +21,7 @@ if (!String.prototype.replaceAll) {
 }
 
 /* offline-shelf: everything below is added to the stock polyfills.js above. */
-var OS_THEMES = [["atlas","Atlas","light","#edf1f2","#0a6a6a","#9fb0b5"],["bunker","Bunker","dark","#070c07","#3fd45a","#2f5a33"],["lampenlicht","Lampenlicht","dark","#14130f","#e3a33b","#4d473c"],["mitternacht","Mitternacht","dark","#0c1220","#e3be72","#3a4a73"],["papier","Papier","light","#f3f1ec","#9a5200","#b7b1a5"],["rotlicht","Rotlicht","dark","#000000","#ff3b2b","#4d0b0b"],["salbei","Salbei","light","#edf0e8","#3d6833","#a3ae96"],["signal","Signal","dark","#191a1c","#ff7a1a","#555a62"],["werkstatt","Werkstatt","light","#e8eaed","#1c4fd6","#6f7b89"],["zeitung","Zeitung","light","#f7f6f2","#b0121b","#111111"]];
+var OS_THEMES = [["atlas","Atlas","light","#edf1f2","#0a6a6a","#9fb0b5"],["bunker","Bunker","dark","#070c07","#3fd45a","#2f5a33"],["lamplight","Lamplight","dark","#14130f","#e3a33b","#4d473c"],["midnight","Midnight","dark","#0c1220","#e3be72","#3a4a73"],["newsprint","Newsprint","light","#f7f6f2","#b0121b","#111111"],["paper","Paper","light","#f3f1ec","#9a5200","#b7b1a5"],["redlight","Red Light","dark","#000000","#ff3b2b","#4d0b0b"],["sage","Sage","light","#edf0e8","#3d6833","#a3ae96"],["signal","Signal","dark","#191a1c","#ff7a1a","#555a62"],["workshop","Workshop","light","#e8eaed","#1c4fd6","#6f7b89"]];
 /* offline-shelf · theme menu
  * Appended by tools/kiwix-theme to kiwix-serve's polyfills.js, the one small
  * script that the library page and the reader both load early in <head>.
